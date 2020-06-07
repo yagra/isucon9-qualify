@@ -526,7 +526,7 @@ func getNewItems(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	sort.Slice(items, func(i, j int) bool { return items[i].CreatedAt.Before(items[j].CreatedAt) })
+	sort.Slice(items, func(i, j int) bool { return items[i].CreatedAt.After(items[j].CreatedAt) })
 
 	itemSimples := []ItemSimple{}
 	for _, item := range items {
