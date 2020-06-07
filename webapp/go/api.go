@@ -147,12 +147,12 @@ func APIShipmentRequest(shipmentURL string, param *APIShipmentRequestReq) ([]byt
 		return nil, fmt.Errorf("status code: %d; body: %s", res.StatusCode, b)
 	}
 
-	delete(shipmentStatusCache, shipmentURL)
+	delete(shipmentStatusCache, param.ReserveID)
 	return ioutil.ReadAll(res.Body)
 }
 
 func APIShipmentStatus(shipmentURL string, param *APIShipmentStatusReq) (*APIShipmentStatusRes, error) {
-	cache, ok := shipmentStatusCache[shipmentURL]
+	cache, ok := shipmentStatusCache[param.ReserveID]
 	if ok {
 		return cache, nil
 	}
@@ -188,6 +188,6 @@ func APIShipmentStatus(shipmentURL string, param *APIShipmentStatusReq) (*APIShi
 		return nil, err
 	}
 
-	shipmentStatusCache[shipmentURL] = ssr
+	shipmentStatusCache[param.ReserveID] = ssr
 	return ssr, nil
 }
