@@ -14,6 +14,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"time"
+	"math/rand"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/sessions"
@@ -345,6 +346,13 @@ func main() {
 	// Assets
 	mux.Handle(pat.Get("/*"), http.FileServer(http.Dir("../public")))
 	log.Fatal(http.ListenAndServe(":8000", mux))
+}
+
+func shuffle(list []int){
+	for i := len(list); i > 1; i-- {
+		j := rand.Intn(i)
+		list[i - 1], list[j] = list[j], list[i - 1]
+	}
 }
 
 func getSession(r *http.Request) *sessions.Session {
@@ -769,6 +777,7 @@ func getUserItems(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+	shuffle(item)
 
 	itemSimples := []ItemSimple{}
 	for _, item := range items {
