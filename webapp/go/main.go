@@ -1294,24 +1294,20 @@ func postBuy(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	_, err = tx.Exec("UPDATE `items` SET `buyer_id` = ?, `status` = ?, `updated_at` = ? WHERE `id` = ?",
+		buyer.ID,
+		ItemStatusTrading,
+		time.Now(),
+		targetItem.ID,
+	)
+	if err != nil {
+		log.Print(err)
+		outputErrorMsg(w, http.StatusInternalServerError, "db error")
+		tx.Rollback()
+		return
+	}
+
 	var eg errgroup.Group
-
-	eg.Go(func() error {
-		_, err = tx.Exec("UPDATE `items` SET `buyer_id` = ?, `status` = ?, `updated_at` = ? WHERE `id` = ?",
-			buyer.ID,
-			ItemStatusTrading,
-			time.Now(),
-			targetItem.ID,
-		)
-		if err != nil {
-			// log.Print(err)
-			outputErrorMsg(w, http.StatusInternalServerError, "db error")
-			// tx.Rollback()
-			return err
-		}
-
-		return nil
-	})
 
 	eg.Go(func() error {
 		seller := User{}
