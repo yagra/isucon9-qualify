@@ -348,7 +348,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8000", mux))
 }
 
-func shuffle(list []int){
+func itemShuffle(list []Item){
 	for i := len(list); i > 1; i-- {
 		j := rand.Intn(i)
 		list[i - 1], list[j] = list[j], list[i - 1]
@@ -777,7 +777,7 @@ func getUserItems(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	shuffle(items)
+	itemShuffle(items)
 
 	itemSimples := []ItemSimple{}
 	for _, item := range items {
