@@ -119,7 +119,7 @@ func APIShipmentCreate(shipmentURL string, param *APIShipmentCreateReq) (*APIShi
 	return scr, nil
 }
 
-var shipmentStatusCache map[string]*APIShipmentStatusRes
+var shipmentStatusCache map[string]*APIShipmentStatusRes = map[string]*APIShipmentStatusRes{}
 
 func APIShipmentRequest(shipmentURL string, param *APIShipmentRequestReq) ([]byte, error) {
 	b, _ := json.Marshal(param)
