@@ -777,7 +777,7 @@ func getUserItems(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	shuffle(item)
+	shuffle(items)
 
 	itemSimples := []ItemSimple{}
 	for _, item := range items {
