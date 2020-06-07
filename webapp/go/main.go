@@ -415,19 +415,25 @@ func getConfigByName(name string) (string, error) {
 }
 
 func getPaymentServiceURL() string {
-	val, _ := getConfigByName("payment_service_url")
-	if val == "" {
-		return DefaultPaymentServiceURL
-	}
-	return val
+	/*
+		val, _ := getConfigByName("payment_service_url")
+		if val == "" {
+			return DefaultPaymentServiceURL
+		}
+		return val
+	*/
+	return DefaultPaymentServiceURL
 }
 
 func getShipmentServiceURL() string {
-	val, _ := getConfigByName("shipment_service_url")
-	if val == "" {
-		return DefaultShipmentServiceURL
-	}
-	return val
+	/*
+		val, _ := getConfigByName("shipment_service_url")
+		if val == "" {
+			return DefaultShipmentServiceURL
+		}
+		return val
+	*/
+	return DefaultShipmentServiceURL
 }
 
 func getIndex(w http.ResponseWriter, r *http.Request) {
