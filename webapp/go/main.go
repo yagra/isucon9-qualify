@@ -769,6 +769,7 @@ func getUserItems(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+	sort.Slice(items, func(i, j int) bool { return item[i].CreatedAt > item[j].CreatedAt })
 
 	itemSimples := []ItemSimple{}
 	for _, item := range items {
