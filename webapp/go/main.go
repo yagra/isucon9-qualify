@@ -12,6 +12,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"time"
 
@@ -769,7 +770,7 @@ func getUserItems(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	sort.Slice(items, func(i, j int) bool { return item[i].CreatedAt > item[j].CreatedAt })
+	sort.Slice(items, func(i, j int) bool { return items[i].CreatedAt.Before(items[j].CreatedAt) })
 
 	itemSimples := []ItemSimple{}
 	for _, item := range items {
