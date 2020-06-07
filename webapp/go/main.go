@@ -1806,6 +1806,7 @@ func postComplete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	invalidateShipmentStatusCache(shipping.ReserveID) // ここは最新のやつじゃないとダメなので
 	ssr, err := APIShipmentStatus(getShipmentServiceURL(), &APIShipmentStatusReq{
 		ReserveID: shipping.ReserveID,
 	})
