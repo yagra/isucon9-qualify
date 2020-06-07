@@ -14,6 +14,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"time"
+	"sort"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/sessions"
@@ -525,6 +526,7 @@ func getNewItems(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+	sort.Slice(items, func(i, j int) bool { return items[i].CreatedAt.Before(items[j].CreatedAt) })
 
 	itemSimples := []ItemSimple{}
 	for _, item := range items {
